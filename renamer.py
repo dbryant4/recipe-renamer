@@ -22,7 +22,7 @@ from pathlib import Path
 
 import requests
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 OLLAMA_URL = "http://192.168.1.177:11434/api/generate"
 DEFAULT_MODEL = "llava-llama3"
@@ -193,7 +193,7 @@ def validate_slug(slug: str) -> None:
 
 def check_ollama(model: str) -> None:
     try:
-        r = requests.get("http://localhost:11434/api/tags", timeout=5)
+        r = requests.get(OLLAMA_URL.rsplit("/api/", 1)[0] + "/api/tags", timeout=5)
         r.raise_for_status()
         names = [m["name"].split(":")[0] for m in r.json().get("models", [])]
         if model not in names:
