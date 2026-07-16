@@ -22,8 +22,10 @@ from pathlib import Path
 
 import requests
 
+__version__ = "1.0.0"
+
 OLLAMA_URL = "http://192.168.1.177:11434/api/generate"
-DEFAULT_MODEL = "llava"
+DEFAULT_MODEL = "llava-llama3"
 DEFAULT_DPI = 300
 
 
@@ -206,6 +208,7 @@ def check_ollama(model: str) -> None:
 
 def main():
     parser = argparse.ArgumentParser(description="Rename recipe PDFs using a local vision LLM.")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument("folder", help="Folder containing recipe PDFs")
     parser.add_argument("--model", default=DEFAULT_MODEL, help=f"Ollama model (default: {DEFAULT_MODEL})")
     parser.add_argument("--dpi", type=int, default=DEFAULT_DPI, help=f"Rasterization DPI (default: {DEFAULT_DPI})")
